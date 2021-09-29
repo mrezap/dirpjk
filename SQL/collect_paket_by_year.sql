@@ -9,22 +9,22 @@ SELECT
 	paket.lls_penawaran_ulang,
 	paket.lls_evaluasi_ulang --, pnt_nama
 FROM
-	PUBLIC .paket
+	PUBLIC.paket
 JOIN
-	PUBLIC. ukpbj
-ON paket.ukpbj_id = ukpbj.ukpbj_id
+	PUBLIC.ukpbj
+	ON paket.ukpbj_id = ukpbj.ukpbj_id
 JOIN
-	PUBLIC. lelang_seleksi
-ON paket.pkt_id = lelang_seleksi.pkt_id
+	PUBLIC.lelang_seleksi
+	ON paket.pkt_id = lelang_seleksi.pkt_id
 JOIN
-	PUBLIC. panitia
-ON paket.pnt_id = panitia.pnt_id
+	PUBLIC.panitia
+	ON paket.pnt_id = panitia.pnt_id
 JOIN
-	PUBLIC.	paket_satker
-ON paket.pkt_id = paket_satker.pkt_id
+	PUBLIC.paket_satker
+	ON paket.pkt_id = paket_satker.pkt_id
 JOIN
-	PUBLIC.	paket_sirup
-ON paket_satker.rup_id = paket_sirup.id
-
-WHERE paket_sirup.tahun = 2021
+	PUBLIC.paket_sirup
+	ON paket_satker.rup_id = paket_sirup.id
+WHERE 
+	paket_sirup.tahun = 2021
 ;
