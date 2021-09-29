@@ -2,7 +2,7 @@ SELECT
 	paket.lls_id,
 	paket.pkt_id,
 	paket.pkt_nama,
-	pkt_pagu,
+	paket.pkt_pagu,
 	paket.ukpbj_id,
 	ukpbj.nama,
 	paket.lls_status,
