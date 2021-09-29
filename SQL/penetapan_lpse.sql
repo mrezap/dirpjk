@@ -10,27 +10,25 @@ SELECT
 	lls_evaluasi_ulang AS e_ulang,
 	paket_sirup.tahun AS sirup_tahun
 FROM
-	PUBLIC. paket
-
+	PUBLIC.paket
 JOIN
-	PUBLIC. ukpbj
-ON paket.ukpbj_id = ukpbj.ukpbj_id
+	PUBLIC.ukpbj
+	ON paket.ukpbj_id = ukpbj.ukpbj_id
 JOIN
-	PUBLIC. lelang_seleksi
-ON paket.pkt_id = lelang_seleksi.pkt_id
+	PUBLIC.lelang_seleksi
+	ON paket.pkt_id = lelang_seleksi.pkt_id
 JOIN
-	PUBLIC.	paket_satker
-ON paket.pkt_id = paket_satker.pkt_id
+	PUBLIC.paket_satker
+	ON paket.pkt_id = paket_satker.pkt_id
 JOIN
-	PUBLIC.	paket_sirup
-ON paket_satker.rup_id = paket_sirup.id
+	PUBLIC.paket_sirup
+	ON paket_satker.rup_id = paket_sirup.id
 JOIN
-	PUBLIC.	jadwal
-ON lelang_seleksi.lls_id = jadwal.lls_id
+	PUBLIC.jadwal
+	ON lelang_seleksi.lls_id = jadwal.lls_id
 JOIN
-	PUBLIC.	tahapan
-ON jadwal.thp_id = tahapan.thp_id
-
+	PUBLIC.tahapan
+	ON jadwal.thp_id = tahapan.thp_id
 WHERE
 (lelang_seleksi.lls_status < 2 AND lelang_seleksi.lls_status > 0)
 AND jadwal.thp_id = 18804
