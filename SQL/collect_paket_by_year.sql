@@ -1,13 +1,13 @@
 SELECT
-	lls_id,
+	paket.lls_id,
 	paket.pkt_id,
 	paket.pkt_nama,
 	pkt_pagu,
 	paket.ukpbj_id,
 	ukpbj.nama,
-	lls_status,
-	lls_penawaran_ulang,
-	lls_evaluasi_ulang --, pnt_nama
+	paket.lls_status,
+	paket.lls_penawaran_ulang,
+	paket.lls_evaluasi_ulang --, pnt_nama
 FROM
 	PUBLIC .paket
 JOIN
