@@ -1,14 +1,14 @@
 SELECT
 	paket_sirup.tahun AS tahun_rup,
 	ukpbj.nama AS bp2jk_wil,
-    lelang_seleksi.lls_id AS kode_spse,
-    paket.pkt_nama AS nama_paket,
+    	lelang_seleksi.lls_id AS kode_spse,
+    	paket.pkt_nama AS nama_paket,
 	paket.pkt_pagu AS pagu_pengadaan,
 	CASE 
-    WHEN kategori.keterangan LIKE '%Jasa Konsultansi%' THEN 'JK'
-    WHEN kategori.keterangan LIKE '%Pekerjaan Konstruksi%' THEN 'PK'
-    ELSE 'Lainnya'
-  END AS jenis_pengadaan,
+   		WHEN kategori.keterangan LIKE '%Jasa Konsultansi%' THEN 'JK'
+    		WHEN kategori.keterangan LIKE '%Pekerjaan Konstruksi%' THEN 'PK'
+    	ELSE 'Lainnya'
+  	END AS jenis_pengadaan,
 	--lelang_seleksi.lls_status,
 	--lelang_seleksi.lls_penawaran_ulang,
 	--lelang_seleksi.lls_evaluasi_ulang,
