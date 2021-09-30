@@ -1,8 +1,8 @@
 SELECT
 	paket_sirup.tahun,
 	ukpbj.nama, 
-    lelang_seleksi.lls_id, 
-    paket.pkt_nama, 
+    	lelang_seleksi.lls_id, 
+    	paket.pkt_nama, 
 	paket.pkt_pagu,
 	kategori.keterangan,
 	--lelang_seleksi.lls_status,
