@@ -26,7 +26,7 @@
 // Sheet emonVL
 function backUpVL(){
       try{
-        const folderIdEvl = '1nuKT7FOUbLk5GT-EBuBN_QhQizFCjtIB';
+        const folderIdEvl = 'xxxxxxxxxxxxxxxxxx'; //drop folder ID in here
         const urlFolderEvl = "https://drive.google.com/drive/folders/" + folderIdEvl;
         const sheets = ['EmonVLOOKUP'];
         const tmpsheets = ['backup'];
@@ -37,7 +37,6 @@ function backUpVL(){
         
         // copy to temp sheet -> to remove all formula and copy only values
         let srcRange = srcSpreadsheet.getSheetByName(sheets).getRange("A:AK");
-        /*srcSpreadsheet.getSheetByName(tmpsheets).activate();*/
         srcRange.copyTo(srcSpreadsheet.getSheetByName(tmpsheets).getRange("A1"), {contentsOnly:true});
 
         // loop range and copy to backup file
@@ -64,7 +63,7 @@ function backUpVL(){
       
         // email notification
         let message = {
-            to : "subditevaluasi.direktoratpjk@gmail.com, ki.binakon@pu.go.id",
+            to : "xxxxxxxxxx",
             subject : "[Mail Notification] File Backup Successful",
             body : "Dear Team, \nFile has been backed up in the following folder " + urlFolderEvl + "\nDetail : Data  EmonVLOOKUP "
             + Utilities.formatDate(new Date(), "GMT+7", "dd-MMM-yyy") + "\nThank you in advance\n\nGS Admin",
@@ -76,7 +75,7 @@ function backUpVL(){
           
         // email notification
         let message = {
-            to : "subditevaluasi.direktoratpjk@gmail.com, ki.binakon@pu.go.id",
+            to : "xxxxxxx",
             subject : "[Mail Notification] File Backup Failed",
             body : "Dear Team, \nFailed to backup file in the following folder \nPlease try again latter.\nThank you in advance\n\nGS Admin",
             name : "GS Admin"
@@ -90,7 +89,7 @@ function backUpVL(){
 // Sheet Data Emon
 function backUpEmon(){
       try{
-        const folderIdEmon = '17kk0a883UHqAMwTex1hSsqagchcXaZTI';
+        const folderIdEvl = 'xxxxxxxxxxxxxxxxxx'; //drop folder ID in here
         const urlFolderEmon = "https://drive.google.com/drive/folders/" + folderIdEmon;
         const sheets = ['DataEmon']
         const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -117,7 +116,7 @@ function backUpEmon(){
 
         // email notification
         let message = {
-            to : "subditevaluasi.direktoratpjk@gmail.com, ki.binakon@pu.go.id",
+            to : "xxxxxxxxxxxxxxxxxx",
             subject : "[Mail Notification] File Backup Successful",
             body : "Dear Team, \n\nFile has been backed up in the following folder " + urlFolderEmon + "\nDetail : Data Emon " 
             + Utilities.formatDate(new Date(), "GMT+7", "dd-MMM-yyy") + "\nThank you in advance\n\nGS Admin",
@@ -129,7 +128,7 @@ function backUpEmon(){
 
         // email notification
         let message = {
-            to : "subditevaluasi.direktoratpjk@gmail.com, ki.binakon@pu.go.id",
+            to : "xxxxxxxxxxxxx",
             subject : "[Mail Notification] File Backup Failed",
             body : "Dear Team, \nFailed to backup file in the following folder \nPlease try again latter.\nThank you in advance\n\nGS Admin",
             name : "GS Admin"
@@ -157,7 +156,7 @@ function onOpen() {
 // go to folder
 function openArchiveEmon() {
 
-  const folderIdEmon = '17kk0a883UHqAMwTex1hSsqagchcXaZTI';
+  const folderIdEmon = 'xxxxxxxxxxxxxx';
   const urlFolderEmon = "https://drive.google.com/drive/folders/" + folderIdEmon;
   const html = "<script>window.open('" + urlFolderEmon + "');google.script.host.close();</script>";
   const userInterface = HtmlService.createHtmlOutput(html);
@@ -166,7 +165,7 @@ function openArchiveEmon() {
 
 function openArchiveVL() {
 
-  const folderIdEvl = '1nuKT7FOUbLk5GT-EBuBN_QhQizFCjtIB';
+  const folderIdEvl = 'xxxxxxxxxxxxxxx';
   const urlFolderEvl = "https://drive.google.com/drive/folders/" + folderIdEvl;
   const html = "<script>window.open('" + urlFolderEvl + "');google.script.host.close();</script>";
   const userInterface = HtmlService.createHtmlOutput(html);
