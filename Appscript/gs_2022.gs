@@ -12,8 +12,8 @@ function onEdit(e) {
 
 // this for cloning spreadsheet
 function cloneGoogleSheet() {
-  const folderId = "1GwpwkLCMkZsNs_cLkGGXcGh5P7bnOFsL";
-  const masterFileId = "1sDL6ZcR6b9ivQenFW0uz2zQc4fBV2D_aH-zGJsJ-Lk4";
+  const folderId = "xxxxxxxxxx";
+  const masterFileId = "xxxxxxxxxx";
   
   const destFolder = DriveApp.getFolderById(folderId); 
   DriveApp.getFileById(masterFileId).makeCopy("_GS-Monev [2022]", destFolder); 
@@ -24,13 +24,13 @@ function cloneSheetToMultiple(){
     const source = SpreadsheetApp.getActiveSpreadsheet();
     const sourceId = source.getId();
     const sourceSheet = source.getSheets()[3]; // index sheet thats will be copied to others
-    const folderId = "1GwpwkLCMkZsNs_cLkGGXcGh5P7bnOFsL"; // destination folder id
+    const folderId = "xxxxxxxxxx"; // destination folder id
     const destFolderId = DriveApp.getFolderById(folderId);
     const sheetDest = destFolderId.getFilesByType(MimeType.GOOGLE_SHEETS); // only on spreadsheet file will be copied
     while (sheetDest.hasNext()) {
           let target_file = sheetDest.next();
           let target_id = target_file.getId();
-          let target_exclude = '19g0umK_YiZZkjOfr8Uhq83Uh17d2q-H4LsSYT20f6lI'; // if we have exclude file in folder
+          let target_exclude = 'xxxxxxxxxx'; // if we have exclude file in folder (id)
           let target_ss = SpreadsheetApp.openById(target_id);
           let newSheetName = "[Monev Paket] v2"
           if(target_id!=sourceId && target_id != target_exclude){
