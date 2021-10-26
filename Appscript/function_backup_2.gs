@@ -18,8 +18,8 @@ function onOpen() {
 }
 
 const urlFolder = "https://drive.google.com/drive/folders/";
-const folder_1 = '1brFpXhOreVyo25ABNVLLsL6sgNrfgA6f'; // data emon
-const folder_2 = '1pZoxYbrjCuv4_rXnWSDVOgK3Ka2x9iGC'; // emonVL
+const folder_1 = 'xxx'; // data emon
+const folder_2 = 'xxx'; // emonVL
   
 //Folder Location
 function openFolderDataEmon() {
@@ -123,6 +123,17 @@ function emonVLbackup(){
         DriveApp
           .getFileById(backupSpreadsheet.getId())
           .moveTo(DriveApp.getFolderById(folder_2));
+          
+        // email notification
+        let message = {
+            to : "xxxx",
+            subject : "[Mail Notification] File Backup Successful",
+            body : "Dear Team, \nFile has been backed up in the following folder " + urlFolder + folder_2 + "\nDetail : Data EmonVLOOKUP "
+            + Utilities.formatDate(new Date(), "GMT+7", "dd-MMM-yyy") + "\nThank you in advance\n\nGS Admin",
+            name : "GS Admin"
+        }
+        MailApp.sendEmail(message);
+
 
         // delete source in temp sheet
         srcSpreadsheet.getSheetByName(tempSheets).clear();
