@@ -7,9 +7,11 @@ function onOpen() {
   let ui = SpreadsheetApp.getUi();
 
   ui.createMenu('⚙️ Additional Tools')
-      .addSubMenu(ui.createMenu('Backup Data')
-        .addItem('Backup Data EmonVL', 'emonVLbackup')
-        .addItem('Backup Data Emon', 'backUpEmon'))
+      .addItem('Update Paket GS', 'updatePaketGS')
+      .addItem('Freeze Paket GS', 'freezePaketGS')
+      .addSeparator()
+      .addItem('Backup Data EmonVL', 'emonVLbackup')
+      .addItem('Backup Data Emon', 'dataEmonBackup')
       .addSeparator()
       .addSubMenu(ui.createMenu('Open Folder')
         .addItem('History Data Emon', 'openFolderDataEmon')
