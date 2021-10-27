@@ -36,17 +36,14 @@ function openFolderEmonVL() {
 
 // ******* backup process ******* //
 
-/**
 // Sheet Data Emon
-function backUpEmon(){
+function dataEmonBackup(){
       try{
-        const folderIdEmon = '17kk0a883UHqAMwTex1hSsqagchcXaZTI';
-        const urlFolderEmon = "https://drive.google.com/drive/folders/" + folderIdEmon;
         const sheets = ['DataEmon']
         const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-        const formattedDate = Utilities.formatDate(new Date(), "GMT+7", "dd-MMM-yyy' 'HH:mm");
-        const destSpreadsheetName = "Bk_DataEmon " + formattedDate;
-        const backupSpreadsheet = SpreadsheetApp.create(destSpreadsheetName);
+        const dateFormat = Utilities.formatDate(new Date(), "GMT+7", "dd-MMM-yyy' 'HH:mm");
+        const backupFileName = dateFormat + " WIB" + " - Backup_DataEmon";
+        const backupSpreadsheet = SpreadsheetApp.create(backupFileName);
 
         // loop range and copyto to backup file
         for(let i=0;i<sheets.length;i++){
@@ -63,35 +60,12 @@ function backUpEmon(){
         // move to folder
         DriveApp
           .getFileById(backupSpreadsheet.getId())
-          .moveTo(DriveApp.getFolderById(folderIdEmon));
-
-        // email notification
-        let message = {
-            to : "subditevaluasi.direktoratpjk@gmail.com",
-            subject : "[Mail Notification] File Backup Successful",
-            body : "Dear Team, \n\nFile has been backed up in the following folder " + urlFolderEmon + "\nDetail : Data Emon " 
-            + Utilities.formatDate(new Date(), "GMT+7", "dd-MMM-yyy") + "\nThank you in advance\n\nGS Admin",
-            name : "GS Admin"
-        }
-        MailApp.sendEmail(message);
-
+          .moveTo(DriveApp.getFolderById(folder_1));
+          
       }catch(err){
-
-        // email notification
-        const folderIdEmon = '17kk0a883UHqAMwTex1hSsqagchcXaZTI';
-        const urlFolderEmon = "https://drive.google.com/drive/folders/" + folderIdEmon;
-        let message = {
-            to : "subditevaluasi.direktoratpjk@gmail.com",
-            subject : "[Mail Notification] File Backup Failed",
-            body : "Dear Team, \nFailed to backup file in the following folder " 
-                      + urlFolderEmon + "Please try again latter.\nThank you in advance\n\nGS Admin",
-            name : "GS Admin"
-        }
-        MailApp.sendEmail(message);
-
         console.log(err.message)
       }
-} */
+}
 
 function emonVLbackup(){
       try{
