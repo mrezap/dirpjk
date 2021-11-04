@@ -7,6 +7,8 @@ function onOpen() {
   let ui = SpreadsheetApp.getUi();
 
   ui.createMenu('⚙️ Additional Tools')
+      .addItem('Read Emon API (JSON)', 'freezeEmonAPI')
+      .addSeparator()
       .addItem('Update Paket GS', 'updatePaketGS')
       .addItem('Freeze Paket GS', 'freezePaketGS')
       .addSeparator()
@@ -34,6 +36,64 @@ function openFolderEmonVL() {
   const html = "<script>window.open('" + urlFolder + folder_2 + "');google.script.host.close();</script>";
   const userInterface = HtmlService.createHtmlOutput(html);
   SpreadsheetApp.getUi().showModalDialog(userInterface, 'Opening Drive Folder');
+}
+
+// ******* EMON API ******* //
+
+// read EMON API - Json
+
+//MD5 - stackoverflow
+function MD5 (input) {
+  let rawHash = Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, input);
+  let txtHash = '';
+  for (i = 0; i < rawHash.length; i++) {
+    let hashVal = rawHash[i];
+    if (hashVal < 0) {
+      hashVal += 256;
+    }
+    if (hashVal.toString(16).length == 1) {
+      txtHash += '0';
+    }
+    txtHash += hashVal.toString(16);
+  }
+  return txtHash;
+}
+
+function tokenAPI(){
+
+  let urlAPI = "https://sipbj.pu.go.id/2022/rest_client/gsmonpelaksanaan_21?token=";
+
+  //format token in url source >> $token = md5('GS'.date('yyyymmdd'))
+  let token = "GS" + Utilities.formatDate(new Date(), "GMT+7", "yy") + Utilities.formatDate(new Date(), "GMT+7", "yy") + Utilities.formatDate(new Date(), "GMT+7", "yy") + Utilities.formatDate(new Date(), "GMT+7", "yy") + Utilities.formatDate(new Date(), "GMT+7", "mm") + Utilities.formatDate(new Date(), "GMT+7", "mm")  + Utilities.formatDate(new Date(), "GMT+7", "dd") + Utilities.formatDate(new Date(), "GMT+7", "dd");
+  
+  let tokenHash = MD5(token);
+  let endpoint = urlAPI + tokenHash
+
+  console.log(endpoint)
+
+  }
+
+function getEmonAPI(){
+
+  const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const sheets = ['DataEmon JSON_example']
+  const endpointApi = "https://raw.githubusercontent.com/mrezap/dirpjk_pupr/main/birq3-0k2z9.json" // change this url for Emon API endpoint
+  
+  srcSpreadsheet.getSheetByName(sheets).activate();
+  srcSpreadsheet.getSheetByName(sheets).getRange("B3:CF").clear();
+  srcSpreadsheet.getSheetByName(sheets).getRange("B3").setFormula('ImportJSON("' + endpointApi + '")')
+}
+
+function freezeEmonAPI(){
+
+  getEmonAPI()
+  SpreadsheetApp.flush()
+
+  const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const sheets = ['DataEmon JSON_example']
+
+  srcSpreadsheet.getSheetByName(sheets).getRange("B3:CF")
+  .copyTo(srcSpreadsheet.getSheetByName(sheets).getRange("B3"), {contentsOnly:true});
 }
 
 // ******* backup process ******* //
