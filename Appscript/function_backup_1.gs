@@ -171,4 +171,3 @@ function openArchiveVL() {
   const userInterface = HtmlService.createHtmlOutput(html);
   SpreadsheetApp.getUi().showModalDialog(userInterface, 'Opening Drive Folder');
 }
-
