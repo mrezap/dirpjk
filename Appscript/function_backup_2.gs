@@ -1,5 +1,5 @@
 /* Credit to
-    26 - Oktober - 2021
+    Start 26 - Oktober - 2021
 */
 
 //UI menu
@@ -7,7 +7,8 @@ function onOpen() {
   let ui = SpreadsheetApp.getUi();
 
   ui.createMenu('⚙️ Additional Tools')
-      .addItem('Read Emon API (JSON)', 'freezeEmonAPI')
+      .addItem('Read API (EMON)', 'freezeEmonAPI')
+      .addItem('Read API (SIPBJ)', 'freezeSipbjAPI')
       .addSeparator()
       .addItem('Update Paket GS', 'updatePaketGS')
       .addItem('Freeze Paket GS', 'freezePaketGS')
@@ -22,8 +23,8 @@ function onOpen() {
 }
 
 const urlFolder = "https://drive.google.com/drive/folders/";
-const folder_1 = 'xxx'; // data emon
-const folder_2 = 'xxx'; // emonVL
+const folder_1 = '1brFpXhOreVyo25ABNVLLsL6sgNrfgA6f'; // data emon
+const folder_2 = '1pZoxYbrjCuv4_rXnWSDVOgK3Ka2x9iGC'; // emonVL
   
 //Folder Location
 function openFolderDataEmon() {
@@ -38,9 +39,9 @@ function openFolderEmonVL() {
   SpreadsheetApp.getUi().showModalDialog(userInterface, 'Opening Drive Folder');
 }
 
-// ******* EMON API ******* //
+// ******* EMON & SIPBJ API ******* //
 
-// read EMON API - Json
+// read SIPBJ API - Json
 
 //MD5 - stackoverflow
 function MD5 (input) {
@@ -59,29 +60,51 @@ function MD5 (input) {
   return txtHash;
 }
 
-function tokenAPI(){
+function getSipbjAPI(){
 
-  let urlAPI = "https://sipbj.pu.go.id/2022/rest_client/gsmonpelaksanaan_21?token=";
+  let urlAPI = "https://sipbj.pu.go.id/2022/kontrak_spse_gs?token="; // change this url for SIPBJ API path
 
   //format token in url source >> $token = md5('GS'.date('yyyymmdd'))
-  let token = "GS" + Utilities.formatDate(new Date(), "GMT+7", "yy") + Utilities.formatDate(new Date(), "GMT+7", "yy") + Utilities.formatDate(new Date(), "GMT+7", "yy") + Utilities.formatDate(new Date(), "GMT+7", "yy") + Utilities.formatDate(new Date(), "GMT+7", "mm") + Utilities.formatDate(new Date(), "GMT+7", "mm")  + Utilities.formatDate(new Date(), "GMT+7", "dd") + Utilities.formatDate(new Date(), "GMT+7", "dd");
+  let token = "GS" + Utilities.formatDate(new Date(), "GMT+7", "YY") + Utilities.formatDate(new Date(), "GMT+7", "YY") + Utilities.formatDate(new Date(), "GMT+7", "YY") + Utilities.formatDate(new Date(), "GMT+7", "YY") + Utilities.formatDate(new Date(), "GMT+7", "MM") + Utilities.formatDate(new Date(), "GMT+7", "MM")  + Utilities.formatDate(new Date(), "GMT+7", "dd") + Utilities.formatDate(new Date(), "GMT+7", "dd");
   
   let tokenHash = MD5(token);
   let endpoint = urlAPI + tokenHash
 
-  console.log(endpoint)
+  const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const sheets = ['json_sipbj_api']
+
+  //console.log(endpoint) - cek md5 endpoint
+
+  srcSpreadsheet.getSheetByName(sheets).activate();
+  srcSpreadsheet.getSheetByName(sheets).getRange("B1:I").clear();
+  srcSpreadsheet.getSheetByName(sheets).getRange("B1").setFormula('ImportJSON("' + endpoint + '")')
 
   }
+
+function freezeSipbjAPI(){
+
+  getSipbjAPI()
+  SpreadsheetApp.flush()
+
+  const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const sheets = ['json_sipbj_api']
+
+  srcSpreadsheet.getSheetByName(sheets).getRange("B1:I")
+  .copyTo(srcSpreadsheet.getSheetByName(sheets).getRange("B1"), {contentsOnly:true});
+}
+
+// read EMON API - Json
 
 function getEmonAPI(){
 
   const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  const sheets = ['DataEmon JSON_example']
+  const sheets = ['json_emon_api']
   const endpointApi = "https://raw.githubusercontent.com/mrezap/dirpjk_pupr/main/birq3-0k2z9.json" // change this url for Emon API endpoint
   
   srcSpreadsheet.getSheetByName(sheets).activate();
   srcSpreadsheet.getSheetByName(sheets).getRange("B3:CF").clear();
   srcSpreadsheet.getSheetByName(sheets).getRange("B3").setFormula('ImportJSON("' + endpointApi + '")')
+
 }
 
 function freezeEmonAPI(){
@@ -90,7 +113,7 @@ function freezeEmonAPI(){
   SpreadsheetApp.flush()
 
   const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  const sheets = ['DataEmon JSON_example']
+  const sheets = ['json_emon_api']
 
   srcSpreadsheet.getSheetByName(sheets).getRange("B3:CF")
   .copyTo(srcSpreadsheet.getSheetByName(sheets).getRange("B3"), {contentsOnly:true});
@@ -129,6 +152,7 @@ function dataEmonBackup(){
       }
 }
 
+// sheet EmonVlookup
 function emonVLbackup(){
       try{
         const sheets = ['EmonVLOOKUP'];
@@ -159,17 +183,6 @@ function emonVLbackup(){
         DriveApp
           .getFileById(backupSpreadsheet.getId())
           .moveTo(DriveApp.getFolderById(folder_2));
-          
-        // email notification
-        let message = {
-            to : "xxxx",
-            subject : "[Mail Notification] File Backup Successful",
-            body : "Dear Team, \nFile has been backed up in the following folder " + urlFolder + folder_2 + "\nDetail : Data EmonVLOOKUP "
-            + Utilities.formatDate(new Date(), "GMT+7", "dd-MMM-yyy") + "\nThank you in advance\n\nGS Admin",
-            name : "GS Admin"
-        }
-        MailApp.sendEmail(message);
-
 
         // delete source in temp sheet
         srcSpreadsheet.getSheetByName(tempSheets).clear();
@@ -242,3 +255,4 @@ function paketGSpartThree(){
     ss.getSheetByName('gs_23-34').clear().getRange('A1');
     ss.getSheetByName('gs_23-34').getRange('A1').setFormula('=QUERY({IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(25,2,1,1)+'";"Data Paket!$A5:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(26,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(27,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(28,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(29,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(30,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(31,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(32,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(33,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(34,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(35,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(36,2,1,1)+'";"Data Paket!$A6:$CD")};"WHERE Col1 IS NOT NULL";1)');
 }
+
