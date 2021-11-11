@@ -91,6 +91,10 @@ function freezeSipbjAPI(){
 
   srcSpreadsheet.getSheetByName(sheets).getRange("B1:I")
   .copyTo(srcSpreadsheet.getSheetByName(sheets).getRange("B1"), {contentsOnly:true});
+    
+  srcSpreadsheet.getSheetByName(sheets).getRange("B1:I").setHorizontalAlignment('center');
+  srcSpreadsheet.getSheetByName(sheets).getRange("B2:E").setNumberFormat('General');
+  srcSpreadsheet.getSheetByName(sheets).getRange("G2:G").setNumberFormat('General');
 }
 
 // read EMON API - Json
