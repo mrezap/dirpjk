@@ -112,7 +112,7 @@ function sendPDFs(optSSId, optSheetId) {
   // send email
   let message = {
     //to: "subditevaluasi.direktoratpjk@gmail.com",
-    to: "subdit_ki@outlook.com", // trial
+    //to: "subdit_ki@outlook.com", // trial
     subject: "[TEST] Laporan Harian Progress PBJ - Status Tgl. " + Utilities.formatDate(new Date, "GMT+7", "dd MMMM yyyy"),
     body: "Yth. Bapak Kasubdit Kepatuhan Intern DPJK,\n\nBerikut terlampir Laporan Progress PBJ Tgl "
             + Utilities.formatDate(new Date, "GMT+7", "dd MMMM yyyy") + "\n\nTerima Kasih,\nTim Monev PBJ",
@@ -122,5 +122,4 @@ function sendPDFs(optSSId, optSheetId) {
   MailApp.sendEmail(message);
 
   closeSheet()
-
 }
