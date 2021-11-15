@@ -30,7 +30,7 @@ function cloneSheetToMultiple(){
     while (sheetDest.hasNext()) {
           let target_file = sheetDest.next();
           let target_id = target_file.getId();
-          let target_exclude = 'xxxxxxxxxx'; // if we have exclude file in folder (id)
+          let target_exclude = 'xxxxxxxx'; // if we have exclude file in folder (id)
           let target_ss = SpreadsheetApp.openById(target_id);
           let newSheetName = "[Monev Paket] v2"
           if(target_id!=sourceId && target_id != target_exclude){
