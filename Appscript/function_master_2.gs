@@ -62,7 +62,7 @@ function MD5 (input) {
 
 function getSipbjAPI(){
 
-  let urlAPI = "https://sipbj.pu.go.id/2022/kontrak_spse_gs?token="; // change this url for SIPBJ API path
+  let urlAPI = "https://sipbj.pu.go.id/2022/kontrak_spse_gs?token="; // change this url for SIPBJ API endpoint
 
   //format token in url source >> $token = md5('GS'.date('yyyymmdd'))
   let token = "GS" + Utilities.formatDate(new Date(), "GMT+7", "YY") + Utilities.formatDate(new Date(), "GMT+7", "YY") + Utilities.formatDate(new Date(), "GMT+7", "YY") + Utilities.formatDate(new Date(), "GMT+7", "YY") + Utilities.formatDate(new Date(), "GMT+7", "MM") + Utilities.formatDate(new Date(), "GMT+7", "MM")  + Utilities.formatDate(new Date(), "GMT+7", "dd") + Utilities.formatDate(new Date(), "GMT+7", "dd");
@@ -73,15 +73,15 @@ function getSipbjAPI(){
   const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const sheets = ['json_sipbj_api']
 
-  //console.log(endpoint) - cek md5 endpoint
+  //console.log(endpoint) //- cek md5 endpoint
 
   srcSpreadsheet.getSheetByName(sheets).activate();
-  srcSpreadsheet.getSheetByName(sheets).getRange("B1:I").clear();
+  srcSpreadsheet.getSheetByName(sheets).getRange("B1:J").clear();
   srcSpreadsheet.getSheetByName(sheets).getRange("B1").setFormula('ImportJSON("' + endpoint + '")')
 
   }
 
-function freezeSipbjAPI(){
+function freezeSipbjAPI(){ 
 
   getSipbjAPI()
   SpreadsheetApp.flush()
@@ -89,12 +89,12 @@ function freezeSipbjAPI(){
   const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const sheets = ['json_sipbj_api']
 
-  srcSpreadsheet.getSheetByName(sheets).getRange("B1:I")
+  srcSpreadsheet.getSheetByName(sheets).getRange("B1:J")
   .copyTo(srcSpreadsheet.getSheetByName(sheets).getRange("B1"), {contentsOnly:true});
-    
-  srcSpreadsheet.getSheetByName(sheets).getRange("B1:I").setHorizontalAlignment('center');
+  srcSpreadsheet.getSheetByName(sheets).getRange("B1:J").setHorizontalAlignment('center');
   srcSpreadsheet.getSheetByName(sheets).getRange("B2:E").setNumberFormat('General');
   srcSpreadsheet.getSheetByName(sheets).getRange("G2:G").setNumberFormat('General');
+  srcSpreadsheet.getSheetByName(sheets).getRange("J2:J").setNumberFormat('General');
 }
 
 // read EMON API - Json
@@ -198,7 +198,7 @@ function emonVLbackup(){
       }
 }
 
-// ******* update process ******* //
+// ******* update paket GS process ******* //
 
 function updateFreeze(){
   updatePaketGS()
@@ -208,13 +208,18 @@ function updateFreeze(){
 
 function updatePaketGS() {
   paketGSpartOne()
+  SpreadsheetApp.flush()
+
   paketGSpartTwo()
+  SpreadsheetApp.flush()
+
   paketGSpartThree()
+  SpreadsheetApp.flush()
 }
 
 function freezePaketGS() {
 
-  SpreadsheetApp.flush()
+  //SpreadsheetApp.flush()
 
   let ss = SpreadsheetApp.getActiveSpreadsheet();
   let range_1 = ss.getSheetByName('gs_00-10').getRange('A:CD')
