@@ -1,0 +1,136 @@
+<html>
+  <head>
+  <base target="_top">
+  
+  <style>
+
+    #body {
+      background: #F5FFFA;
+    }
+    
+    #select_file {
+      height: 40px;
+      width: 280px;
+      font-size: 14px;
+      margin: auto;
+      background: #F8F8FF;
+    }
+    
+    #date_picker {
+      height: 40px;
+      width: 80%;
+      font-size: 14px;
+      margin: auto;
+      background: #F8F8FF;
+    }
+
+    #button {
+      text-align: center;
+      height:16px;
+      width:120px;
+      border-radius:4px;
+      font-size:14px;
+      color: white;
+      height:40px;
+      cursor:pointer;
+      background:#006400;
+    }
+
+    #id {
+      height: 10px;
+      width: 280px;
+      font-size: 8px;
+      color: #F5FFFA;
+      margin: auto;
+      border: 4px;
+      background: #F5FFFA;
+    }
+
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+
+</head>
+
+<body id="body">
+  <button onclick="google.script.run.openSidebar();">Refresh Sidebar</button>
+
+  <form id="submitForm">
+  <textarea id="id" name="id" readonly></textarea>
+  <h4>Pilih File EmonVL Backup :</h4>
+  <select id="select_file"></select><p />
+  <h4>Atur tanggal laporan :</h4>
+  <input type="date" id="date_picker" name="date"><p />
+  <h4>Atur Waktu Laporan :</h4>
+  <select id="select_file" name="time">
+    <option value="08.00 WIB">08.00 WIB</option>
+    <option value="12.00 WIB">12.00 WIB</option>
+    <option value="16.00 WIB">16.00 WIB</option>
+  </select>
+  <br><br><br><br><br><br><br><br><br><br><br>
+  <span style="color: #F5FFFA">--</span>
+  <input type="button" id="button" value="Import Data" onclick="submitId();">
+  <span style="color: #F5FFFA">--</span>
+  <input type="button" id="button" value="Close" onclick="google.script.host.close();">
+  </form>
+
+</body>
+
+<script>
+
+let alldata = {};
+
+$(function() {
+
+  // folder target
+  const rootFolderId = "1pZoxYbrjCuv4_rXnWSDVOgK3Ka2x9iGC";
+  google.script.run.withSuccessHandler(checkFile).getFiles(rootFolderId, rootFolderId);
+
+  $('#select_file').change(function() {
+    let id = $('#select_file').val();
+    let disp = $('#select_file option:selected').text();
+    if (~disp.indexOf("Folder") || ~disp.indexOf("../")) {
+      $('#select_file > option').remove();
+      if (alldata[id]) {
+        let dat = {};
+        dat[id] = alldata[id];
+        checkFile(dat);
+        return;
+      } else {
+        google.script.run.withSuccessHandler(checkFile).getFiles(id, rootFolderId);
+        return;
+      }
+      return;
+    }
+    google.script.run.withSuccessHandler(output).doSomething(id);
+  });
+});
+
+function checkFile(e) {
+  let key = Object.keys(e)[0];
+  if (!alldata[key]) alldata[key] = e[key];
+  if (e[key]["keyparent"]) {
+    $('#select_file').append($('<option>').html("./[Folder] " + e[key]["keyname"]).val(key));
+    $('#select_file').append($('<option>').html("../").val(e[key]["keyparent"]));
+  } else {
+    $('#select_file').append($('<option>').html("./[Folder] " + e[key]["keyname"]).val(key));
+  }
+  for (let i=0; i < e[key]["files"].length; i++) {
+    $('#select_file').append($('<option>')
+      .html(e[key]["files"][i].mimeType == "folder" ? "[Folder] " + e[key]["files"][i].name : e[key]["files"][i].name)
+      .val(e[key]["files"][i].id)
+    );
+  }
+}
+
+function output(res){
+  $('#id').text(res);
+}
+
+function submitId() {
+  google.script.run.submitKey(document.getElementById("submitForm"));
+}
+
+</script>
+
+</html>
