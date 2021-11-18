@@ -1,3 +1,48 @@
+
+/* 
+**************************
+Menu
+**************************
+*/
+
+
+function onOpen() {
+
+  openSidebar();
+
+  let menu = SpreadsheetApp.getUi()
+  
+  menu.createMenu("⚙️ Additional Tools")
+  .addItem('Import Backup File from Drive', 'openSidebar')
+  .addSeparator()
+  .addSubMenu(menu.createMenu('Data Tools')
+  .addItem('Freeze Data', 'freezeData')
+  .addItem('Refresh Data (Update & Freeze)', 'refreshData'))
+  .addSeparator()
+  .addSubMenu(menu.createMenu('PDF Tools')
+  .addItem('Save PDF Report', 'sendPDFs')
+  .addItem('Open PDF Folder', 'openPDFfolder'))
+  .addToUi();
+}
+
+function openSidebar() {
+  
+  let sideBar = HtmlService.createTemplateFromFile("sidebar.html")
+  .evaluate()
+  .setTitle("Sidebar Menu Spreadsheet");
+  SpreadsheetApp.getUi().showSidebar(sideBar);
+
+}
+
+function openPDFfolder() {
+  const folderId = '1-b23tGSPaJUMscCeE8X4VLuCCtXzWqJ9'
+  const urlFolder = "https://drive.google.com/drive/folders/" + folderId;
+  const html = "<script>window.open('" + urlFolder + "');google.script.host.close();</script>";
+  const userInterface = HtmlService.createHtmlOutput(html);
+  SpreadsheetApp.getUi().showModalDialog(userInterface, 'Opening Drive Folder');
+}
+
+
 /* 
 **************************
 Choosing file on backup folder
