@@ -247,7 +247,10 @@ function paketGSpartOne() {
   // sheet gs part 1
     ss.getSheetByName('gs_00-10').showSheet();
     ss.getSheetByName('gs_00-10').clear().getRange('A1');
+
     ss.getSheetByName('gs_00-10').getRange('A1').setFormula('=QUERY({IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(2,2,1,1)+'";"Data Paket!$A5:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(3,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(4,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(5,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(6,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(7,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(8,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(9,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(10,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(11,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(12,2,1,1)+'";"Data Paket!$A6:$CD")};"WHERE Col1 IS NOT NULL";1)');
+    
+    ss.getSheetByName('gs_00-10').hideSheet()
 }
 
 function paketGSpartTwo() {
@@ -257,7 +260,10 @@ function paketGSpartTwo() {
   // sheet gs part 2
     ss.getSheetByName('gs_11-22').showSheet();
     ss.getSheetByName('gs_11-22').clear().getRange('A1');
+
     ss.getSheetByName('gs_11-22').getRange('A1').setFormula('=QUERY({IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(13,2,1,1)+'";"Data Paket!$A5:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(14,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(15,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(16,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(17,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(18,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(19,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(20,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(21,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(22,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(23,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(24,2,1,1)+'";"Data Paket!$A6:$CD")};"WHERE Col1 IS NOT NULL";1)');
+
+    ss.getSheetByName('gs_11-22').hideSheet();
 }
 
 function paketGSpartThree(){
@@ -267,6 +273,8 @@ function paketGSpartThree(){
   // sheet gs part 3
     ss.getSheetByName('gs_23-34').showSheet();
     ss.getSheetByName('gs_23-34').clear().getRange('A1');
-    ss.getSheetByName('gs_23-34').getRange('A1').setFormula('=QUERY({IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(25,2,1,1)+'";"Data Paket!$A5:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(26,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(27,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(28,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(29,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(30,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(31,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(32,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(33,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(34,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(35,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(36,2,1,1)+'";"Data Paket!$A6:$CD")};"WHERE Col1 IS NOT NULL";1)');
-}
 
+    ss.getSheetByName('gs_23-34').getRange('A1').setFormula('=QUERY({IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(25,2,1,1)+'";"Data Paket!$A5:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(26,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(27,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(28,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(29,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(30,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(31,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(32,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(33,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(34,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(35,2,1,1)+'";"Data Paket!$A6:$CD");IMPORTRANGE("'+ ss.getSheetByName('reference#').getSheetValues(36,2,1,1)+'";"Data Paket!$A6:$CD")};"WHERE Col1 IS NOT NULL";1)');
+
+    ss.getSheetByName('gs_23-34').hideSheet();
+}
