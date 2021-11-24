@@ -15,8 +15,9 @@ function cloneGoogleSheet() {
   const folderId = "xxxxxxxxxx";
   const masterFileId = "xxxxxxxxxx";
   
+  for(let i = 0; i < limit; i++) {
   const destFolder = DriveApp.getFolderById(folderId); 
-  DriveApp.getFileById(masterFileId).makeCopy("_GS-Monev [2022]", destFolder); 
+  DriveApp.getFileById(masterFileId).makeCopy("WORKSHEET_", destFolder); }
 }
 
 // this for cloning sheet into multiple workhseet on the folder
