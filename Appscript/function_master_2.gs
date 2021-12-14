@@ -81,7 +81,7 @@ function getSipbjAPI(){
   //console.log(endpoint) //- cek md5 endpoint
 
   srcSpreadsheet.getSheetByName(sheets).activate();
-  srcSpreadsheet.getSheetByName(sheets).getRange("B1:J").clear();
+  srcSpreadsheet.getSheetByName(sheets).getRange("B1:K").clear();
   srcSpreadsheet.getSheetByName(sheets).getRange("B1").setFormula('ImportJSON("' + endpoint + '")')
 
   }
@@ -94,12 +94,26 @@ function freezeSipbjAPI(){
   const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const sheets = ['json_sipbj_api']
 
-  srcSpreadsheet.getSheetByName(sheets).getRange("B1:J")
+  srcSpreadsheet.getSheetByName(sheets).getRange("B1:K")
   .copyTo(srcSpreadsheet.getSheetByName(sheets).getRange("B1"), {contentsOnly:true});
-  srcSpreadsheet.getSheetByName(sheets).getRange("B1:J").setHorizontalAlignment('center');
+  //format cell
+  srcSpreadsheet.getSheetByName(sheets).getRange("B1:K").setHorizontalAlignment('center').setVerticalAlignment('middle');
   srcSpreadsheet.getSheetByName(sheets).getRange("B2:E").setNumberFormat('General');
   srcSpreadsheet.getSheetByName(sheets).getRange("G2:G").setNumberFormat('General');
   srcSpreadsheet.getSheetByName(sheets).getRange("J2:J").setNumberFormat('General');
+  }
+
+function createTempDataSipbj(){ 
+
+  const srcSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const sheets = ['json_sipbj_api']
+
+  srcSpreadsheet.getSheetByName(sheets).getRange("AB2:AG").clear();
+  srcSpreadsheet.getSheetByName(sheets).getRange("P1:U")
+  .copyTo(srcSpreadsheet.getSheetByName(sheets).getRange("AB2"), {contentsOnly:true});
+  //format cell
+  srcSpreadsheet.getSheetByName(sheets).getRange("AB2:AG2").setHorizontalAlignment('center').setVerticalAlignment('middle');
+  srcSpreadsheet.getSheetByName(sheets).getRange("AC2:AG").setHorizontalAlignment('center').setVerticalAlignment('middle');
 }
 
 // read EMON API - Json
@@ -278,3 +292,4 @@ function paketGSpartThree(){
 
     ss.getSheetByName('gs_23-34').hideSheet();
 }
+
