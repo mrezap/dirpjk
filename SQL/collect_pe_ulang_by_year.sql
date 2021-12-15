@@ -1,12 +1,23 @@
+WITH temp_table_satker AS (SELECT
+	sk.stk_id, sk.stk_kode, sk.stk_nama, st.satminkal AS unor, st.satm
+FROM
+	PUBLIC.satuan_kerja sk
+JOIN
+	PUBLIC.satker_satm skst
+	ON sk.stk_kode = skst.stk_kode
+JOIN
+	PUBLIC.satm st
+	ON skst.satmid = st.satmid)
+
 SELECT
 	paket_sirup.tahun AS tahun_rup,
 	ukpbj.nama AS bp2jk_wil,
-    	lelang_seleksi.lls_id AS kode_spse,
-    	paket.pkt_nama AS nama_paket,
+  lelang_seleksi.lls_id AS kode_spse,
+  paket.pkt_nama AS nama_paket,
 	paket.pkt_pagu AS pagu_pengadaan,
 	CASE 
-   		WHEN kategori.keterangan LIKE '%Jasa Konsultansi%' THEN 'JK'
-    		WHEN kategori.keterangan LIKE '%Pekerjaan Konstruksi%' THEN 'PK'
+    	WHEN kategori.keterangan LIKE '%Jasa Konsultansi%' THEN 'JK'
+    	WHEN kategori.keterangan LIKE '%Pekerjaan Konstruksi%' THEN 'PK'
     	ELSE 'Lainnya'
   	END AS jenis_pengadaan,
 	--lelang_seleksi.lls_status,
@@ -15,9 +26,9 @@ SELECT
 	CASE
 		WHEN lelang_seleksi.lls_penawaran_ulang > 0 THEN 'Penawaran Ulang'
 		WHEN lelang_seleksi.lls_evaluasi_ulang > 0 THEN 'Evaluasi Ulang'
-		WHEN lelang_seleksi.lls_status = 2 THEN 'Tender Ulang'
 		ELSE ''
-	END AS status
+	END AS status,
+	temp_table_satker.unor AS satker_unor
 FROM
 	PUBLIC.lelang_seleksi
 JOIN
@@ -35,6 +46,9 @@ JOIN
 JOIN
 	PUBLIC.paket_sirup
 	ON paket_satker.rup_id = paket_sirup.id
+JOIN
+	temp_table_satker
+	ON temp_table_satker.stk_id = paket_satker.stk_id
 WHERE
 paket_sirup.tahun = 2021 --you can adjust year in here as depends on paket year thats regist in SIRUP
 AND (lelang_seleksi.lls_penawaran_ulang = 1 OR lelang_seleksi.lls_evaluasi_ulang = 1) --as information paket thats have value 1 in this field is "p/e ulang"
